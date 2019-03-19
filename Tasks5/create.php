@@ -4,17 +4,17 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 require('connect.php');
 if (isset($_POST['name'])) {
-    $name = $POST['name'];
+    $name = $_POST['name'];
     
 }
-if (isset($_POST9['description'])) {
+if (isset($_POST['description'])) {
     $description =  $_POST['description'];
     
 }
 $userId = $_SESSION['logged_user_id'];
 $statement = $pdo->prepare("INSERT INTO posts (name,description, id_author) VALUES ('$name','$description','$userId')");
 $statement->execute();
-if (isset($statement));
+if (isset($statement)) {
 $message = 'Статья успешно создана';
         } else {
             $message = 'Не удалось создать статью';

@@ -6,14 +6,14 @@ if (isset($_POST['id'])) {
 }else if (isset($_POST['deletepost'])) {
     $id = $_POST['deletepost'];
 } else {
-    echo 'нет D';
+    echo 'нет ID';
 }
 require ('connect.php');
 $count = $pdo->exec("DELETE FROM posts WHERE id='$id'");
 if ($count == 0) {
-    $message = 'Такой статьи нет в базе'ж
+    $message = 'Такой статьи нет в базе';
 } else {
-    $message = 'Статья успешно удалена'ж
+    $message = 'Статья успешно удалена';
 }
 ?>
 <!doctype html>

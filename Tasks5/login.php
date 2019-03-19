@@ -1,38 +1,43 @@
 <?php
 
+
 error_reporting(-1);
-ini_set('display_error', 'On');
+ini_set('display_errors', 'On');
 require('connect.php');
 if (isset($_POST['login'])) {
     $errors = [];
     if (trim($_POST['username']) == '') {
-     $errors[] = 'Введите логин';  
+        $errors[] = 'Введите логин';
     }
-  if ($_POST['password'] == '')  {
-      $errors[] = 'Введите пароль';
-  }
- if (empty($errora)) {
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $statement = $pdo->query("SELECT * FROM users WHERE username = '$username'");
-  $count = $statement->fetchColumn();
-  if ($count == 0) {
-      $errors[] = 'Пользователя с таким логином не существует';
-  }else {
-      $statement = $pdo->query("SELECT * FROM users WHERE username = '$username'");
-      $posts = $statement->fetchAll();
-      $hesh = $posts[0]['password'];
-      $userId = $posts[0]['id'];
-      if (password_verify($password, $hesh)) {
-          $_SESSION['logged_user+id'] = $useId;
-          header('location: index.php');
-      } else {
-          $errors[] = 'Неверный пароль';
-      }
-  }
- }
+    if ($_POST['password'] == '') {
+        $errors[] = 'Введите пароль';
+    }
+
+    if (empty($errors)) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $statement = $pdo->query("SELECT * FROM users WHERE username = '$username'");
+        $count = $statement->fetchColumn();
+        if ($count == 0) $errors[] = 'Пользователя с таким логином не сущуствует';
+        else {
+            $statement = $pdo->query("SELECT * FROM users WHERE username = '$username'");
+            $posts = $statement->fetchAll();
+          //  echo $posts;
+            $hesh = $posts[0]['password'];
+           $userId = $posts[0]['id'];
+            if (password_verify($password, $hesh)) {
+              //  $massage = "$username, вы успешно залогинились";
+                $_SESSION['logged_user_id'] = $userId ;
+               header('location: index.php' );
+            }
+            else {
+                $errors[] = 'Невернай пароль';
+            }
+        }
+    }
 }
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -56,15 +61,9 @@ if (isset($_POST['login'])) {
             <div class="alert alert-success" role="alert"><?= $massage; ?></div>
         <?php endif; ?>
         <input type="text" name="username" class="form-control" placeholder="введите имя"
-               value="<?php  if (isset($_POST['username'])) {
-                   echo $_POST['username'];
-               }
-               ?>">
+               value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>">
         <input type="password" name="password" class="form-control" placeholder="введите пароль"
-               value="<?php  if (isset($_POST['password'])) {
-                   echo $_POST['password'];
-               }
-               ?>">
+               value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>">
         <button class="btn btn-lg btn-primary btn-block" name="login" type="submit">Войти</button>
         <a href="signup.php" class="btn btn-lg btn-outline-primary btn-block">Зарегистрироваться</a>
 
@@ -72,3 +71,4 @@ if (isset($_POST['login'])) {
 </div>
 </body>
 </html>
+

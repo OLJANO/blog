@@ -6,12 +6,12 @@ if (isset($_POST['id'])) {
     $id = $_POST['editpost'];
 } else {
     echo 'нет ID';
-    
 }
 require ('connect.php');
-$statement = $pdo->query("SELECT * FROM posts WHERE id = '$id'");
-$post =$statement->fetchAll(PDO:: FETCH_ASSOC);
+$statement = $pdo->query("SELECT * FROM posts WHERE id = '$id' ");
+$posts = $statement->fetchAll(PDO:: FETCH_ASSOC);
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -40,3 +40,4 @@ $post =$statement->fetchAll(PDO:: FETCH_ASSOC);
 </div>
 </body>
 </html>
+

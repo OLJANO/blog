@@ -1,14 +1,14 @@
 <?php
-
 error_reporting(-1);
 ini_set('display_errors', 'On');
-require('connect.php');
+require ('connect.php');
 $statement = $pdo->query("SELECT * FROM posts ");
 $posts = $statement->fetchAll(PDO:: FETCH_ASSOC);
-if (isset($_SESSION['logged_user-id'])) {
+if (isset($_SESSION['logged_user_id'])) {
     $sessionUserId = $_SESSION['logged_user_id'];
 }
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -109,4 +109,3 @@ if (isset($_SESSION['logged_user-id'])) {
 </div>
 </body>
 </html>
-
